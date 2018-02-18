@@ -12,19 +12,24 @@ public class LoginServlet extends HttpServlet
   protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String uid = req.getParameter("uid");
     String p = req.getParameter("pass");
-    if(p.equals("agile"))
+    String uName = db.Admin.checkId(uid,p);
+    if(!uName.equals("Invalid"))
     {
         HttpSession session = req.getSession(true);
         session.setAttribute("uid", uid);
-        session.setAttribute("userType", "admin");
-         res.sendRedirect("homeadmin.jsp");
-    }
-    else if(p.equals("agile1"))
-    {
-        HttpSession session = req.getSession(true);
-        session.setAttribute("uid", uid);
-        session.setAttribute("userType", "supervisor");
-         res.sendRedirect("homesupervisor.jsp");
+        session.setAttribute("name", uName);
+        if(uid.startsWith("A")){
+            session.setAttribute("userType", "admin");
+            res.sendRedirect("homeadmin.jsp");
+        }
+        else if(uid.startsWith("C")){
+            session.setAttribute("userType", "client");
+            res.sendRedirect("homeclient.jsp");
+        }
+        else if(uid.startsWith("S")){
+            session.setAttribute("userType", "supervisor");
+            res.sendRedirect("homesupervisor.jsp");
+        }
     }
     else
       res.sendRedirect("index.jsp?t=0"); // t is the query String parameter 

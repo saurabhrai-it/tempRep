@@ -32,7 +32,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <%
-    String name=(String)session.getAttribute("uid");
+    String uid=(String)session.getAttribute("uid");
+    String name=(String)session.getAttribute("name");
     String joinDate="23 July, 2017";
     String isAdminCreated = request.getParameter("success");
     if(isAdminCreated!=null)
@@ -63,44 +64,17 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><%=name%></span>
+          <li>
+            <a href="#">
+                <span class="hidden-xs"><b>SIGN OUT</b></span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  <%=name%>
-                  <small>Member since <%=joinDate%></small>
-                </p>
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
           </li>
         </ul>
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
@@ -160,6 +134,27 @@
 				xhttp.open("POST","AddAttendance.jsp",true);
 				xhttp.send();
 			}
+						
+ function submitAttendance(userId, inTime, outTime) {
+                                var result = "FAIL";
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						result = "DONE";
+					}
+				};
+				xhttp.open("POST","SubmitAttendance.jsp?attendUserId="+userId+"&in="+inTime+"&out="+outTime,true);
+				xhttp.send();
+                                return result;
+			}
+                        
+ function getTimestamp(divId){
+            var nowStamp = Date.now();
+            var nowDate = new Date(nowStamp);
+            var nowLocalDateTime = nowDate.toLocaleDateString() + " " + nowDate.toLocaleTimeString();
+            document.getElementById(divId.id).innerHTML = nowLocalDateTime;
+            return nowStamp;
+        }
 			
      window.onload=function() {
 				 getAttendance();

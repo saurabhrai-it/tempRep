@@ -36,4 +36,33 @@ public class Admin {
        }
        catch(Exception ex) { return ex.getMessage(); }
     }
+    public static String checkId(String uid,String pass)
+    {  
+       try
+       {
+        cs = connect().prepareCall("{call checkId(?,?,?)}");
+        cs.setString(1, uid);
+        cs.setString(2, pass);
+        cs.registerOutParameter(3,Types.VARCHAR);
+        cs.execute(); 
+        connect().close();
+        return cs.getString(3);        
+       }
+       catch(Exception ex) { return ex.getMessage(); }
+    }
+    public static String addAttendanceToDb(String uid,String inTime, String outTime)
+    {  
+       try
+       {
+        cs = connect().prepareCall("{call addAttendance(?,?,?,?)}");
+        cs.setString(1, uid);
+        cs.setString(2, inTime);
+        cs.setString(3, outTime);
+        cs.registerOutParameter(4,Types.VARCHAR);
+        cs.execute(); 
+        connect().close();
+        return cs.getString(4);        
+       }
+       catch(Exception ex) { return ex.getMessage(); }
+    }
 }

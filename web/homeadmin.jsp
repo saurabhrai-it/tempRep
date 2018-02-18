@@ -31,8 +31,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    <%
-    String name=(String)session.getAttribute("uid");
+    <% 
+//    String uid=(String)session.getAttribute("uid");
+    String name=(String)session.getAttribute("name");
     String joinDate="23 July, 2017";
     String isAdminCreated = request.getParameter("success");
     if(isAdminCreated!=null)
@@ -49,21 +50,16 @@
   <header class="main-header">
     <!-- Logo -->
     <a href="homeadmin.jsp" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>K</span>
-      <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Sys</b>Key</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
