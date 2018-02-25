@@ -63,6 +63,12 @@ CREATE TABLE `attendance` (
 
 /*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
 INSERT INTO `attendance` (`id`,`inTime`,`outTime`,`totalTime`) VALUES 
+ ('GSau33331',1519586392598,1519586466134,73536),
+ ('GSau33332',1519586393308,1519586466820,73512),
+ ('GSau33333',1519586393949,1519586467469,73520),
+ ('GSau33334',1519586394869,1519586468197,73328),
+ ('GSau33335',1519586395756,1519586468988,73232),
+ ('GSau33336',1519586397045,1519586470108,73063),
  ('SSau22222',1519481252462,1519489003323,25096),
  ('SSau22222',1519481590142,1519489003323,25096),
  ('SSau22222',1519488978227,1519489003323,25096),
@@ -72,7 +78,8 @@ INSERT INTO `attendance` (`id`,`inTime`,`outTime`,`totalTime`) VALUES
  ('SSau22222',1519574656906,1519574781954,125048),
  ('SSau22222',1519574797323,1519575155547,358224),
  ('SSau22222',1519576000131,1519576175748,175617),
- ('SSau22222',1519576210364,1519576468221,257857);
+ ('SSau22222',1519576210364,1519576468221,257857),
+ ('SSau22222',1519586424637,1519586488365,63728);
 /*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 
 
@@ -306,6 +313,23 @@ BEGIN
       declare continue handler for 1329
        set msg = 'invalid';
       select inTime into msg from attendance where id=userId and outTime=0;
+END $$
+
+DELIMITER ;
+
+--
+-- Procedure `security`.`getGuardData`
+--
+
+DROP PROCEDURE IF EXISTS `getGuardData`;
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getGuardData`(in uid varchar(50))
+BEGIN
+     select d.name, g.guardId
+     from  guards g, details d
+     where g.guardId = d.id and g.supId=uid;
+
 END $$
 
 DELIMITER ;

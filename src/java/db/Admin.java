@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Types;
+import java.sql.*;
 
 /**
  *
@@ -77,5 +74,14 @@ public class Admin {
         return cs.getString(2);        
        }
        catch(Exception ex) { return ex.getMessage(); }
+    }
+    
+    
+    public static ResultSet getGuardData(String u)  throws Exception
+    {
+       cs= connect().prepareCall("{call getGuardData(?)}");
+       cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
     }
 }

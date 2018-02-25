@@ -3,6 +3,7 @@
         <%@ page import="java.text.*" %>
         <%@ page import="java.util.Date" %>
         <%@ page import="java.sql.Timestamp" %>
+        <%@ page import="java.sql.ResultSet" %>
         <%!
             public static String checkInTime(String userId){
                 String tempTime = db.Admin.checkInTimePresent(userId);
@@ -68,5 +69,58 @@
           </div>
         </div>
         </div>
+                
+        
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Guard Attendance</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="guardAttendance" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Name</th>
+                  <th colspan="2">In Time</th>
+                  <th colspan="2">Out Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <%
+                        ResultSet rs = db.Admin.getGuardData(userId);
+                        while(rs.next())
+                        {
+                            String guardName=rs.getString(1);
+                            String guardId=rs.getString(2);
+                            
+                            String disableInCheckboxGuard="disabled";
+                            String disableOutCheckboxGuard="";
+                            String guardInTime = checkInTime(guardId);
+                            if(guardInTime.equals("0")){
+                                guardInTime = "00/00/0000 0:00:00 XX";
+                                disableInCheckboxGuard = "";
+                                disableOutCheckboxGuard = "disabled";
+                            }
+                    %>
+                <tr>
+                  <td><%=guardName%></td>
+                  <td><input type="checkbox" name="inTimeGuard" id="inTimeGuard<%=guardId%>"  value="0" onClick="this.value=getTimestamp(inTimeDiv<%=guardId%>);" <%=disableInCheckboxGuard%>></td>
+                  <td><div id="inTimeDiv<%=guardId%>"><%=guardInTime%></div></td>
+                  <td><input type="checkbox" name="outTimeGuard" id="outTimeGuard<%=guardId%>" value="0" onClick="this.value=getTimestamp(outTimeDiv<%=guardId%>);" <%=disableOutCheckboxGuard%>></td>
+                  <td><div id="outTimeDiv<%=guardId%>">00/00/0000 00:00:00 XX</div></td>
+                  <td><input type="submit" value="Submit" onclick="submitAttendance('<%=guardId%>',document.getElementById('inTimeGuard<%=guardId%>').value,document.getElementById('outTimeGuard<%=guardId%>').value);"></td>
+                </tr>
+                <%
+                }
+                %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        </div>
+                
     </body>
 </html>
