@@ -52,8 +52,8 @@ DROP TABLE IF EXISTS `attendance`;
 CREATE TABLE `attendance` (
   `id` varchar(50) NOT NULL DEFAULT '',
   `inTime` bigint(13) unsigned NOT NULL,
-  `outTime` bigint(13) unsigned NOT NULL,
-  `totalTime` int(2) unsigned DEFAULT NULL,
+  `outTime` bigint(13) unsigned NOT NULL DEFAULT '0',
+  `totalTime` bigint(13) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`,`inTime`,`outTime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -62,6 +62,17 @@ CREATE TABLE `attendance` (
 --
 
 /*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
+INSERT INTO `attendance` (`id`,`inTime`,`outTime`,`totalTime`) VALUES 
+ ('SSau22222',1519481252462,1519489003323,25096),
+ ('SSau22222',1519481590142,1519489003323,25096),
+ ('SSau22222',1519488978227,1519489003323,25096),
+ ('SSau22222',1519489627525,1519489638892,11367),
+ ('SSau22222',1519533048423,1519568160521,1519568160521),
+ ('SSau22222',1519573854167,1519574633002,778835),
+ ('SSau22222',1519574656906,1519574781954,125048),
+ ('SSau22222',1519574797323,1519575155547,358224),
+ ('SSau22222',1519576000131,1519576175748,175617),
+ ('SSau22222',1519576210364,1519576468221,257857);
 /*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 
 
@@ -173,7 +184,8 @@ INSERT INTO `login_info` (`uid`,`pass`,`type`) VALUES
  ('','','admin'),
  ('AAka27410','agile','admin'),
  ('ARah63210','agile','admin'),
- ('ASau23650','agile','admin');
+ ('ASau23650','agile','admin'),
+ ('SSau22222','qwerty','supervisor');
 /*!40000 ALTER TABLE `login_info` ENABLE KEYS */;
 
 
@@ -234,6 +246,66 @@ BEGIN
    insert into admin values(uid,superId);
 
    commit;
+END $$
+
+DELIMITER ;
+
+--
+-- Procedure `security`.`addAttendance`
+--
+
+DROP PROCEDURE IF EXISTS `addAttendance`;
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addAttendance`(in uid varchar(45), in inTime1 bigint(13), in outTime1 bigint(13), out m varchar(100))
+BEGIN
+      declare timeDiff bigint(13);
+      declare inTime2 bigint(13);
+      declare continue handler for 1329
+       set m = 'invalid1';
+     declare continue handler for 1062
+       set m = 'invalid2';
+     if outTime1 = 0 then
+         insert into attendance values(uid,inTime1,outTime1,0);
+         set m = 'Done1';         
+     else
+         select inTime into inTime2 from attendance where id=uid and outTime=0;
+         set timeDiff = outTime1 - inTime2;
+         update attendance set outTime=outTime1, totalTime=timeDiff where id=uid and outTime=0;
+         set m = 'Done2';
+     end if;
+END $$
+
+DELIMITER ;
+
+--
+-- Procedure `security`.`checkId`
+--
+
+DROP PROCEDURE IF EXISTS `checkId`;
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkId`(in u varchar(50), in p varchar(50), out m varchar(50))
+BEGIN
+    declare continue handler for 1329
+      set m = 'Invalid';
+    select name into m from details where id=(select uid from login_info where uid=u and binary pass=p);
+END $$
+
+DELIMITER ;
+
+--
+-- Procedure `security`.`checkInTimePresent`
+--
+
+DROP PROCEDURE IF EXISTS `checkInTimePresent`;
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `checkInTimePresent`(in userId varchar(50), out msg varchar(100))
+BEGIN
+      declare continue handler for 1329
+       set msg = 'invalid';
+      select inTime into msg from attendance where id=userId and outTime=0;
 END $$
 
 DELIMITER ;

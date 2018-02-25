@@ -49,7 +49,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="homeadmin.jsp" class="logo">
+    <a href="homesupervisor.jsp" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>K</span>
       <!-- logo for regular state and mobile devices -->
@@ -136,16 +136,14 @@
 			}
 						
  function submitAttendance(userId, inTime, outTime) {
-                                var result = "FAIL";
 				xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						result = "DONE";
-					}
-				};
 				xhttp.open("POST","SubmitAttendance.jsp?attendUserId="+userId+"&in="+inTime+"&out="+outTime,true);
 				xhttp.send();
-                                return result;
+                                 xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						result = "Done";
+					}
+				};
 			}
                         
  function getTimestamp(divId){
@@ -167,10 +165,6 @@
 <script src="bower_components/morris.js/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- jQuery Knob Chart -->
 <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="bower_components/moment/min/moment.min.js"></script>
@@ -185,8 +179,6 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 </body>

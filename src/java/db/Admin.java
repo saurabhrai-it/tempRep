@@ -65,4 +65,17 @@ public class Admin {
        }
        catch(Exception ex) { return ex.getMessage(); }
     }
+    public static String checkInTimePresent(String uid)
+    {  
+       try
+       {
+        cs = connect().prepareCall("{call checkInTimePresent(?,?)}");
+        cs.setString(1, uid);
+        cs.registerOutParameter(2,Types.VARCHAR);
+        cs.execute(); 
+        connect().close();
+        return cs.getString(2);        
+       }
+       catch(Exception ex) { return ex.getMessage(); }
+    }
 }
