@@ -57,11 +57,11 @@
                 <tbody>
                 <tr>
                   <td><%=userName%></td>
-                  <td><input type="checkbox" name="inTimeSup" id="inTimeSup"  value="0" onClick="this.value=getTimestamp(inTimeDiv);" <%=disableInCheckbox%>></td>
+                  <td><input type="checkbox" name="inTimeSup" id="inTimeSup"  value="0" onClick="this.value=getTimestamp(inTimeDiv);" onchange="disableSubmit(inTimeSup,outTimeSup,submitButton);" <%=disableInCheckbox%>></td>
                   <td><div id="inTimeDiv"><%=superInTime%></div></td>
-                  <td><input type="checkbox" name="outTimeSup" id="outTimeSup" value="0" onClick="this.value=getTimestamp(outTimeDiv);" <%=disableOutCheckbox%>></td>
+                  <td><input type="checkbox" name="outTimeSup" id="outTimeSup" value="0" onClick="this.value=getTimestamp(outTimeDiv);" onchange="disableSubmit(inTimeSup,outTimeSup,submitButton);" <%=disableOutCheckbox%>></td>
                   <td><div id="outTimeDiv">00/00/0000 00:00:00 XX</div></td>
-                  <td><input type="submit" value="Submit" onclick="submitAttendance('<%=userId%>',document.getElementById('inTimeSup').value,document.getElementById('outTimeSup').value);"></td>
+                  <td><input type="submit" value="Submit" id="submitButton" onclick="submitAttendance('<%=userId%>',document.getElementById('inTimeSup').value,document.getElementById('outTimeSup').value);showDone(submitButton);" style="cursor: not-allowed;" disabled></td>
                 </tr>
                 </tbody>
               </table>
@@ -106,11 +106,11 @@
                     %>
                 <tr>
                   <td><%=guardName%></td>
-                  <td><input type="checkbox" name="inTimeGuard" id="inTimeGuard<%=guardId%>"  value="0" onClick="this.value=getTimestamp(inTimeDiv<%=guardId%>);" <%=disableInCheckboxGuard%>></td>
+                  <td><input type="checkbox" name="inTimeGuard" id="inTimeGuard<%=guardId%>"  value="0" onClick="this.value=getTimestamp(inTimeDiv<%=guardId%>);" onchange="disableSubmit(inTimeGuard<%=guardId%>,outTimeGuard<%=guardId%>,submitButton<%=guardId%>);" <%=disableInCheckboxGuard%>></td>
                   <td><div id="inTimeDiv<%=guardId%>"><%=guardInTime%></div></td>
-                  <td><input type="checkbox" name="outTimeGuard" id="outTimeGuard<%=guardId%>" value="0" onClick="this.value=getTimestamp(outTimeDiv<%=guardId%>);" <%=disableOutCheckboxGuard%>></td>
+                  <td><input type="checkbox" name="outTimeGuard" id="outTimeGuard<%=guardId%>" value="0" onClick="this.value=getTimestamp(outTimeDiv<%=guardId%>);" onchange="disableSubmit(inTimeGuard<%=guardId%>,outTimeGuard<%=guardId%>,submitButton<%=guardId%>);" <%=disableOutCheckboxGuard%>></td>
                   <td><div id="outTimeDiv<%=guardId%>">00/00/0000 00:00:00 XX</div></td>
-                  <td><input type="submit" value="Submit" onclick="submitAttendance('<%=guardId%>',document.getElementById('inTimeGuard<%=guardId%>').value,document.getElementById('outTimeGuard<%=guardId%>').value);"></td>
+                  <td><input type="submit" value="Submit" id="submitButton<%=guardId%>" onclick="submitAttendance('<%=guardId%>',document.getElementById('inTimeGuard<%=guardId%>').value,document.getElementById('outTimeGuard<%=guardId%>').value);showDone(submitButton<%=guardId%>);"  style="cursor: not-allowed;" disabled></td>
                 </tr>
                 <%
                 }
@@ -120,7 +120,6 @@
             </div>
           </div>
         </div>
-        </div>
-                
+        </div>       
     </body>
 </html>

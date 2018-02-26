@@ -30,11 +30,18 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<% 
+response.setHeader("Cache-Control","no-store"); 
+response.setHeader("Pragma","no-cache"); 
+response.setHeader ("Expires", "0"); //prevents caching at the proxy server 
+%>
 <body class="hold-transition skin-blue sidebar-mini">
     <% 
 //    String uid=(String)session.getAttribute("uid");
     String name=(String)session.getAttribute("name");
     String joinDate="23 July, 2017";
+    if(name==null)
+          response.sendRedirect("index.jsp");
     String isAdminCreated = request.getParameter("success");
     if(isAdminCreated!=null)
     if(isAdminCreated.equals("true"))
@@ -81,7 +88,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="index.jsp?t=logout" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

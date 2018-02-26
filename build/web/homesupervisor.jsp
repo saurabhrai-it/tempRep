@@ -30,9 +30,16 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<% 
+response.setHeader("Cache-Control","no-store"); 
+response.setHeader("Pragma","no-cache"); 
+response.setHeader ("Expires", "0"); //prevents caching at the proxy server 
+%>
 <body class="hold-transition skin-blue sidebar-mini">
     <%
     String uid=(String)session.getAttribute("uid");
+    if(uid==null)
+          response.sendRedirect("index.jsp");
     String name=(String)session.getAttribute("name");
     String joinDate="23 July, 2017";
     String isAdminCreated = request.getParameter("success");
@@ -65,7 +72,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <li>
-            <a href="#">
+            <a href="index.jsp?t=logout">
                 <span class="hidden-xs"><b>SIGN OUT</b></span>
             </a>
           </li>
@@ -86,6 +93,12 @@
             <a href="#" onclick="getDashboard();">
             <i class="fa fa-user-plus"></i>
             <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="treeview">
+            <a href="index.jsp?t=logout" >
+            <i class="fa fa-sign-out"></i>
+            <span>Sign Out</span>
           </a>
         </li>
       </ul>
@@ -141,7 +154,8 @@
 				xhttp.send();
                                  xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-						result = "Done";
+//                                                location.reload();
+getAttendance();
 					}
 				};
 			}
@@ -153,7 +167,23 @@
             document.getElementById(divId.id).innerHTML = nowLocalDateTime;
             return nowStamp;
         }
-			
+ function showDone(divid) {
+          document.getElementById(divid.id).value = "Done";                
+      }
+      
+function disableSubmit(clickInId,clickOutId,submitId){
+                var isInClicked = document.getElementById(clickInId.id).checked;
+                var isOutClicked = document.getElementById(clickOutId.id).checked;
+                if(isInClicked||isOutClicked)
+                {
+                    document.getElementById(submitId.id).disabled = false;
+                    document.getElementById(submitId.id).style.cursor = "pointer";
+                }
+                else{
+                    document.getElementById(submitId.id).disabled = true;
+                    document.getElementById(submitId.id).style.cursor = "not-allowed";
+                }
+            }
      window.onload=function() {
 				 getAttendance();
 			}
@@ -179,7 +209,5 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
 </body>
 </html>
