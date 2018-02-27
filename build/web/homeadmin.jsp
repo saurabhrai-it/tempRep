@@ -4,10 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Admin | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -30,12 +28,12 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<% 
-response.setHeader("Cache-Control","no-store"); 
-response.setHeader("Pragma","no-cache"); 
-response.setHeader ("Expires", "0"); //prevents caching at the proxy server 
-%>
-<body class="hold-transition skin-blue sidebar-mini">
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+<body class="hold-transition skin-blue sidebar-mini" onload="noBack();"
+    onpageshow="if (event.persisted) noBack();" onunload="">
     <% 
 //    String uid=(String)session.getAttribute("uid");
     String name=(String)session.getAttribute("name");
@@ -124,6 +122,12 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
           </a>
         </li>
         <li class="treeview">
+          <a href="#" onclick="addGuard();">
+            <i class="fa fa-user-plus"></i>
+            <span>Add Guard</span>
+          </a>
+        </li>
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>View Clients</span>
             <span class="pull-right-container">
@@ -151,6 +155,12 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
             <li><a href="#"><i class="fa fa-circle-o"></i>Attendance</a></li>
           </ul>
         </li>
+        <li>
+            <a href="index.jsp?t=logout">
+            <i class="fa fa-sign-out"></i>
+            <span>Sign Out</span>
+          </a>
+        </li>
 	  </ul>
     </section>
   </aside>
@@ -169,9 +179,9 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);

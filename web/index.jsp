@@ -20,6 +20,8 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
            out.print("<font color=red>Sorry this is invalid Login Id & Password. re-enter plz.</font>");
        else if(t.equals("logout"))
            out.print("<font color=red>Logout Done. Do Login Again!!!</font>");
+       else if(t.equals("sessionExpired"))
+           out.print("<font color=red>Session Expired!!! Login again!!</font>");
    } 
  %>
 
@@ -28,4 +30,9 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
         Password: <input type="password" id="pass" name="pass"/><br/>
         <input type="submit" value="Sign In">
     </form>
+ 
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
 </html>

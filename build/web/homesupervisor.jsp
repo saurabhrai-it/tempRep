@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="css/syskey.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
@@ -30,12 +30,12 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<% 
-response.setHeader("Cache-Control","no-store"); 
-response.setHeader("Pragma","no-cache"); 
-response.setHeader ("Expires", "0"); //prevents caching at the proxy server 
-%>
-<body class="hold-transition skin-blue sidebar-mini">
+<SCRIPT type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</SCRIPT>
+<body class="hold-transition skin-blue sidebar-mini" onload="noBack();"
+    onpageshow="if (event.persisted) noBack();" onunload="">
     <%
     String uid=(String)session.getAttribute("uid");
     if(uid==null)
@@ -95,8 +95,8 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
             <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
-            <a href="index.jsp?t=logout" >
+        <li >
+            <a href="index.jsp?t=logout">
             <i class="fa fa-sign-out"></i>
             <span>Sign Out</span>
           </a>

@@ -9,7 +9,6 @@
     </section>
 
         <%
-            
             String userType=(String)session.getAttribute("userType");
             if(userType.equals("admin")){
         %>
