@@ -84,4 +84,25 @@ public class Admin {
        connect().close();
        return cs.executeQuery();
     }
+    public static ResultSet getClientData(String u)  throws Exception
+    {
+       cs= connect().prepareCall("{call getClientData(?)}");
+       cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
+    }
+    public static ResultSet GetSupGuardID(String u)  throws Exception
+    {
+       cs= connect().prepareCall("{call getSupGuardID(?)}");
+       cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
+    }
+    public static ResultSet GetUserFromUid(String u)  throws Exception
+    {
+       cs= connect().prepareCall("{call getUserFromUid(?)}");
+       cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
+    }
 }

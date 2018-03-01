@@ -123,8 +123,6 @@ else if(userType.equals("supervisor"))
       <% }
 else if(userType.equals("client"))
 {
-    String state = "InActive";
-    String colorBox = "red";
     ResultSet rs = db.Admin.getClientData(userId);
     if(rs.next())
     {
@@ -135,12 +133,7 @@ else if(userType.equals("client"))
         String totalTowers=rs.getString(5);
         String totalGuardsRequired=rs.getString(6);
         String totalGuardsPresent=rs.getString(7);
-        if( (Long.parseLong(rs.getString(3))-System.currentTimeMillis()) > 0)
-        {
-            colorBox = "green";
-            state = "Active";
-        }
-%>
+        %>
         
         <section class="content">
       <div class="row">
@@ -156,9 +149,9 @@ else if(userType.equals("client"))
           </div>
         </div>
         <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-<%=colorBox%>">
+          <div class="small-box bg-green">
             <div class="inner">
-              <h3><%=state%></h3>
+              <h3>Active</h3>
               <p>Service Type</p>
             </div>
             <div class="icon">
@@ -178,7 +171,7 @@ else if(userType.equals("client"))
           </div>
         </div>
         <div class="col-lg-3 col-xs-6">
-          <div class="small-box bg-<%=colorBox%>">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3><%=expireDate%></h3>
               <p>Service Expiry Date</p>

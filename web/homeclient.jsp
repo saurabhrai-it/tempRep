@@ -34,12 +34,12 @@
 </SCRIPT>
 <body class="hold-transition skin-blue sidebar-mini" onload="noBack();"
     onpageshow="if (event.persisted) noBack();" onunload="">
-    <%
-    String uid=(String)session.getAttribute("uid");
-    if(uid==null)
-          response.sendRedirect("index.jsp");
+    <% 
+//    String uid=(String)session.getAttribute("uid");
     String name=(String)session.getAttribute("name");
     String joinDate="23 July, 2017";
+    if(name==null)
+          response.sendRedirect("index.jsp");
     String isAdminCreated = request.getParameter("success");
     if(isAdminCreated!=null)
     if(isAdminCreated.equals("true"))
@@ -54,15 +54,11 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="homesupervisor.jsp" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
+    <a href="homeadmin.jsp" class="logo">
       <span class="logo-mini"><b>S</b>K</span>
-      <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Sys</b>Key</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
@@ -78,28 +74,57 @@
       </div>
     </nav>
   </header>
+  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
+      
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
-            <a href="#" onclick="getAttendance();">
-            <i class="fa fa-dashboard"></i> <span>Attendance</span>
+            <a href="#" onclick="getDashboard();">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
         <li class="treeview">
-            <a href="#" onclick="getDashboard();">
+            <a href="#" onclick="getGuardProfile();">
             <i class="fa fa-user-plus"></i>
-            <span>Dashboard</span>
+            <span>Guard Profile</span>
           </a>
         </li>
-        <li >
+        <li class="treeview">
+            <a href="#" onclick="getGuardAttendance();">
+            <i class="fa fa-user-plus"></i>
+            <span>Guard Attendance</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#" onclick="mapGuard();">
+            <i class="fa fa-user-plus"></i>
+            <span>Guard Map</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#" onclick="accounts();">
+            <i class="fa fa-users"></i>
+            <span>Accounts</span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#" onclick="broadcastMessage();">
+            <i class="fa fa-pie-chart"></i>
+            <span>Broadcast Message</span>
+          </a>
+        </li>
+        <li>
             <a href="index.jsp?t=logout">
             <i class="fa fa-sign-out"></i>
             <span>Sign Out</span>
           </a>
         </li>
-      </ul>
+	  </ul>
     </section>
   </aside>
 
@@ -114,6 +139,13 @@
     <strong>Copyright &copy; 2018 <a href="#">SysKey</a>.</strong> All rights
     reserved.
   </footer>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="js/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="js/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
   
@@ -127,63 +159,73 @@
 			xhttp.open("POST","GetDashboard.jsp",true);
 			xhttp.send();
 			}
-						
- function getAttendance() {
+			
+ function getGuardProfile() {
 				xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						document.getElementById("contentDiv").innerHTML = this.responseText;
 					}
 				};
-				xhttp.open("POST","AddAttendance.jsp",true);
+				xhttp.open("POST","GetGuardProfile.jsp",true);
 				xhttp.send();
 			}
 						
- function submitAttendance(userId, inTime, outTime) {
+ function getGuardAttendance() {
 				xhttp = new XMLHttpRequest();
-				xhttp.open("POST","SubmitAttendance.jsp?attendUserId="+userId+"&in="+inTime+"&out="+outTime,true);
-				xhttp.send();
-                                 xhttp.onreadystatechange = function() {
+				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-//                                                location.reload();
-getAttendance();
+						document.getElementById("contentDiv").innerHTML = this.responseText;
 					}
 				};
+				xhttp.open("POST","GetGuardAttendance.jsp",true);
+				xhttp.send();
 			}
-                        
- function getTimestamp(divId){
-            var nowStamp = Date.now();
-            var nowDate = new Date(nowStamp);
-            var nowLocalDateTime = nowDate.toLocaleDateString() + " " + nowDate.toLocaleTimeString();
-            document.getElementById(divId.id).innerHTML = nowLocalDateTime;
-            return nowStamp;
-        }
- function showDone(divid) {
-          document.getElementById(divid.id).value = "Done";                
-      }
-      
-function disableSubmit(clickInId,clickOutId,submitId){
-                var isInClicked = document.getElementById(clickInId.id).checked;
-                var isOutClicked = document.getElementById(clickOutId.id).checked;
-                if(isInClicked||isOutClicked)
-                {
-                    document.getElementById(submitId.id).disabled = false;
-                    document.getElementById(submitId.id).style.cursor = "pointer";
-                }
-                else{
-                    document.getElementById(submitId.id).disabled = true;
-                    document.getElementById(submitId.id).style.cursor = "not-allowed";
-                }
-            }
+			
+						
+ function mapGuard() {
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("contentDiv").innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("POST","MapGuard.jsp",true);
+				xhttp.send();
+			}
+			
+						
+ function accounts() {
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("contentDiv").innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("POST","Accounts.jsp",true);
+				xhttp.send();
+			}
+			
+						
+ function broadcastMessage() {
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("contentDiv").innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("POST","BroadcastMessage.jsp",true);
+				xhttp.send();
+			}
+			
      window.onload=function() {
-				 getAttendance();
+				 getDashboard();
 			}
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>
-<script src="bower_components/morris.js/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
@@ -204,8 +246,6 @@ function disableSubmit(clickInId,clickOutId,submitId){
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 </body>
