@@ -40,8 +40,8 @@
                 <table class="table no-margin">
                   <thead>
                   <tr>
-                    <th>Supervisor Name</th>
-                    <th>Guard Name</th>
+                      <th class="text-center">Supervisor Name</th>
+                      <th class="text-center">Guard Name</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -58,13 +58,29 @@
               for (Map.Entry<String, String> entry : mapSG.entrySet()) {
                     String key = entry.getKey();
                     String value = entry.getValue();
+                    String key1 = "";
+                    String value1 = "";
+                    ResultSet rsGuard = db.Admin.GetUserFromUid(key);
+                    if(rsGuard.next())
+                        key1=rsGuard.getString(1);
                     if(tempStr.equals(value))
                     {
                         if(oneTime.equals("true")){
+                            ResultSet rsSup = db.Admin.GetUserFromUid(value);
+                            if(rsSup.next())
+                                value1=rsSup.getString(1);
          %>
                             <tr>
-                              <td><%=db.Admin.GetUserFromUid(value).getString(1)%></td>
-                              <td><%=db.Admin.GetUserFromUid(key).getString(1)%></td>
+                              <td>
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block" data-toggle="modal"
+                                          data-target="#supModal">
+                                      <%=value1%>
+                                  </button>
+                              </td>
+                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
+                                          data-target="#guardModal">
+                                      <%=key1%>
+                                  </button></td>
                             </tr>
                         <% 
                             oneTime = "false";
@@ -73,17 +89,29 @@
                         %>
                             <tr>
                               <td></td>
-                              <td><%=db.Admin.GetUserFromUid(key).getString(1)%></td>
+                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
+                                          data-target="#guardModal">
+                                      <%=key1%>
+                                  </button></td>
                             </tr>
          <% 
                             }
                     }
                     else{
                     tempStr  = value;
+                    ResultSet rsSup = db.Admin.GetUserFromUid(value);
+                    if(rsSup.next())
+                       value1=rsSup.getString(1);
                     %>
                             <tr>
-                              <td><%=db.Admin.GetUserFromUid(value).getString(1)%></td>
-                              <td><%=db.Admin.GetUserFromUid(key).getString(1)%></td>
+                              <td><button type="button" class="btn btn-linkedin btn-sm btn-block" data-toggle="modal"
+                                          data-target="#supModal">
+                                      <%=value1%>
+                                  </button></td>
+                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
+                                          data-target="#guardModal">
+                                      <%=key1%>
+                                  </button></td>
                             </tr>
                         <%
                     }
@@ -95,5 +123,41 @@
        </div>
       </div>    
     </section>
+                  
+    <div class="modal fade" id="supModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Supervisor Profile</h4>
+              </div>
+              <div class="modal-body">
+                <p>Some text in the modal.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+      
+        </div>
+    </div>              
+    <div class="modal fade" id="guardModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Guard Profile</h4>
+              </div>
+              <div class="modal-body">
+                <p>Some text in the modal.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+      
+        </div>
+    </div>
+                  
     </body>
 </html>
