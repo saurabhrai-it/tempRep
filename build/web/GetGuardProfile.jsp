@@ -72,16 +72,35 @@
          %>
                             <tr>
                               <td>
-                                  <button type="button" class="btn btn-linkedin btn-sm btn-block" data-toggle="modal"
-                                          data-target="#supModal">
+                                  <a href="Profile.jsp?profId=<%=value%>"  data-toggle="modal" data-target="#<%=value%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
                                       <%=value1%>
                                   </button>
+                                  </a>
                               </td>
-                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
-                                          data-target="#guardModal">
+                              <td>
+                                  <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
                                       <%=key1%>
-                                  </button></td>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                              
+    <div id="<%=value%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+                    
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  
                         <% 
                             oneTime = "false";
                             }
@@ -89,11 +108,21 @@
                         %>
                             <tr>
                               <td></td>
-                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
-                                          data-target="#guardModal">
+                              <td>
+                                  <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
                                       <%=key1%>
-                                  </button></td>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                                
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
          <% 
                             }
                     }
@@ -102,17 +131,37 @@
                     ResultSet rsSup = db.Admin.GetUserFromUid(value);
                     if(rsSup.next())
                        value1=rsSup.getString(1);
-                    %>
+         %>
                             <tr>
-                              <td><button type="button" class="btn btn-linkedin btn-sm btn-block" data-toggle="modal"
-                                          data-target="#supModal">
+                              <td>
+                                  <a href="Profile.jsp?profId=<%=value%>"  data-toggle="modal" data-target="#<%=value%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
                                       <%=value1%>
-                                  </button></td>
-                              <td><button type="button" class="btn btn-facebook btn-sm btn-block" data-toggle="modal"
-                                          data-target="#guardModal">
+                                  </button>
+                                  </a>
+                              </td>
+                              <td>
+                                  <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
                                       <%=key1%>
-                                  </button></td>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                                                          
+    <div id="<%=value%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+                    
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
                         <%
                     }
                 }
@@ -123,41 +172,6 @@
        </div>
       </div>    
     </section>
-                  
-    <div class="modal fade" id="supModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center">Supervisor Profile</h4>
-              </div>
-              <div class="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-      
-        </div>
-    </div>              
-    <div class="modal fade" id="guardModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center">Guard Profile</h4>
-              </div>
-              <div class="modal-body">
-                <p>Some text in the modal.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-      
-        </div>
-    </div>
-                  
+                
     </body>
 </html>

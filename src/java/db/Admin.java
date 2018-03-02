@@ -105,4 +105,11 @@ public class Admin {
        connect().close();
        return cs.executeQuery();
     }
+    public static ResultSet GetDetails(String u)  throws Exception
+    {
+       cs= connect().prepareCall("{call getDetails(?)}");
+       cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
+    }
 }
