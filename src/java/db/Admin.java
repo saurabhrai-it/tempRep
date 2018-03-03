@@ -1,7 +1,6 @@
 package db;
 
 import java.sql.*;
-
 /**
  *
  * @author Saurabh
@@ -109,6 +108,15 @@ public class Admin {
     {
        cs= connect().prepareCall("{call getDetails(?)}");
        cs.setString(1, u);
+       connect().close();
+       return cs.executeQuery();
+    }
+    public static ResultSet GetAttendance(String u,long inTime, long outTime)  throws Exception
+    {
+       cs= connect().prepareCall("{call getAttendance(?,?,?)}");
+       cs.setString(1, u);
+       cs.setLong(2,inTime);
+       cs.setLong(3,outTime);
        connect().close();
        return cs.executeQuery();
     }

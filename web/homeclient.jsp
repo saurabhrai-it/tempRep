@@ -217,7 +217,18 @@
 				xhttp.open("POST","BroadcastMessage.jsp",true);
 				xhttp.send();
 			}
-			
+
+ function getAttendance(userId1,type) {
+				xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("AttendanceId"+userId1).innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("POST","GetAttendance.jsp?id="+userId1+"&type="+type,true);
+				xhttp.send();
+			}
+						
      window.onload=function() {
 				 getDashboard();
 			}

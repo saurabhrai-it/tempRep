@@ -22,8 +22,8 @@
         
   <section class="content-header">
       <h1>
-        Guard
-        <small>Attendance</small>
+        View Attendance
+        <small>Guard</small>
       </h1>
     </section>
 
@@ -40,8 +40,8 @@
                 <table class="table no-margin">
                   <thead>
                   <tr>
-                    <th>Supervisor Name</th>
-                    <th>Guard Name</th>
+                      <th class="text-center">Supervisor Name</th>
+                      <th class="text-center">Guard Name</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -71,9 +71,36 @@
                                 value1=rsSup.getString(1);
          %>
                             <tr>
-                              <td ><%=value1%></td>
-                              <td><%=key1%></td>
+                              <td>
+                                  <a href="Attendance.jsp?profId=<%=value%>"  data-toggle="modal" data-target="#<%=value%>Modal">
+                                      <button type="button" class="btn btn-linkedin btn-sm btn-block" onload="getAttendance('<%=value%>','1');">
+                                      <%=value1%>
+                                  </button>
+                                  </a>
+                              </td>
+                              <td>
+                                  <a href="Attendance.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
+                                      <%=key1%>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                              
+    <div id="<%=value%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+                    
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  
                         <% 
                             oneTime = "false";
                             }
@@ -81,8 +108,21 @@
                         %>
                             <tr>
                               <td></td>
-                              <td><%=key1%></td>
+                              <td>
+                                  <a href="Attendance.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
+                                      <%=key1%>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                                
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
          <% 
                             }
                     }
@@ -91,11 +131,37 @@
                     ResultSet rsSup = db.Admin.GetUserFromUid(value);
                     if(rsSup.next())
                        value1=rsSup.getString(1);
-                    %>
+         %>
                             <tr>
-                              <td><%=value1%></td>
-                              <td><%=key1%></td>
+                              <td>
+                                  <a href="Attendance.jsp?profId=<%=value%>"  data-toggle="modal" data-target="#<%=value%>Modal">
+                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
+                                      <%=value1%>
+                                  </button>
+                                  </a>
+                              </td>
+                              <td>
+                                  <a href="Attendance.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
+                                      <%=key1%>
+                                  </button>
+                                  </a>
+                              </td>
                             </tr>
+                                                                          
+    <div id="<%=value%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+                    
+    <div id="<%=key%>Modal" class="modal fade text-center">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
                         <%
                     }
                 }

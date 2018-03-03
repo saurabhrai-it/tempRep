@@ -23,7 +23,11 @@
                 <h4 class="modal-title text-center"><%=header%> Profile</h4>
               </div>
               <div class="modal-body">
-                <p><%=userId%> <%=name%> <%=sex%> <%=mobile%> <%=doc%> <%=mailId%></p>
+                  <p>Name : <%=name%> </p>
+                  <p>Gender :<%=sex%> </p>
+                  <p>Mobile :<%=mobile%> </p>
+                  <p>Mail Id :<%=mailId%> </p>
+                  <p>Document :<%=doc%> </p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

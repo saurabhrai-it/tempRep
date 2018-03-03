@@ -22,8 +22,8 @@
         
   <section class="content-header">
       <h1>
-        Guard
-        <small>Profile</small>
+        Profile
+        <small>Guard</small>
       </h1>
     </section>
 
@@ -80,7 +80,7 @@
                               </td>
                               <td>
                                   <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
-                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
                                       <%=key1%>
                                   </button>
                                   </a>
@@ -110,7 +110,7 @@
                               <td></td>
                               <td>
                                   <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
-                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
                                       <%=key1%>
                                   </button>
                                   </a>
@@ -142,7 +142,7 @@
                               </td>
                               <td>
                                   <a href="Profile.jsp?profId=<%=key%>"  data-toggle="modal" data-target="#<%=key%>Modal">
-                                  <button type="button" class="btn btn-linkedin btn-sm btn-block">
+                                  <button type="button" class="btn btn-facebook btn-sm btn-block">
                                       <%=key1%>
                                   </button>
                                   </a>
