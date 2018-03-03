@@ -40,21 +40,12 @@
     String joinDate="23 July, 2017";
     if(name==null)
           response.sendRedirect("index.jsp");
-    String isAdminCreated = request.getParameter("success");
-    if(isAdminCreated!=null)
-    if(isAdminCreated.equals("true"))
-    {
-    %>
-    <script>
-        window.alert("New admin has been created! A mail regarding the credentials were sent to the new admin!!!");
-    </script>
-    <%
-    }%>
+%>
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="homeadmin.jsp" class="logo">
+    <a href="homeclient.jsp" class="logo">
       <span class="logo-mini"><b>S</b>K</span>
       <span class="logo-lg"><b>Sys</b>Key</span>
     </a>
