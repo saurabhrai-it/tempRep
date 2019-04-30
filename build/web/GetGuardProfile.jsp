@@ -163,8 +163,11 @@
     </div>
   </div>
                         <%
+                            rsSup.close();
                     }
+                    rsGuard.close();
                 }
+                rs.close();
          %>
                   </tbody>
                 </table>

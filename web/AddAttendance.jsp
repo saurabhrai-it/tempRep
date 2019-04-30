@@ -114,6 +114,7 @@
                 </tr>
                 <%
                 }
+                rs.close();
                 %>
                 </tbody>
               </table>

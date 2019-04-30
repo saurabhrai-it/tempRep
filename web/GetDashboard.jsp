@@ -235,6 +235,8 @@ else if(userType.equals("client"))
       </div>
 
     </section>
-        <%}}%>
+        <%}
+        rs.close();
+}%>
     </body>
 </html>

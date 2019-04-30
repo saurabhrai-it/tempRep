@@ -35,5 +35,6 @@
     </body>
     <%
     }
+    rs.close();
     %>
 </html>
