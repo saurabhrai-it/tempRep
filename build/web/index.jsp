@@ -3,7 +3,7 @@
     Created on : Feb 11, 2018, 5:26:54 PM
     Author     : Saurabh
 --%>
-
+<%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,9 @@ response.setHeader ("Expires", "0"); //prevents caching at the proxy server
            out.print("<font color=red>Logout Done. Do Login Again!!!</font>");
        else if(t.equals("sessionExpired"))
            out.print("<font color=red>Session Expired!!! Login again!!</font>");
+       Connection conn=(Connection)session.getAttribute("temp");
+       if(!conn.isClosed())
+           conn.close();
    } 
  %>
 

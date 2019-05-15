@@ -1,5 +1,4 @@
 <html>
-
 <%
              String userId = request.getParameter("profId");
              String header = "Guard";

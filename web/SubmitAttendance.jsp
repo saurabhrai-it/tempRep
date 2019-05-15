@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*" %>
 <html>
     <body>
         <%
@@ -9,8 +10,10 @@
                 output = "Check on IN time  or OUT time";
 //            else if(outTime.equals("false"))
 //                output = db.Admin.addAttendanceToDb(attendUserId,inTime,"0");
-            else
-                output = db.Admin.addAttendanceToDb(attendUserId,inTime,outTime);
+            else{
+                Connection conn=(Connection)session.getAttribute("temp");
+                output = db.Admin.addAttendanceToDb(conn, attendUserId,inTime,outTime);
+            }
         %><%=output%>
     </body>
 </html>

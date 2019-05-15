@@ -1,11 +1,13 @@
 <html>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.sql.ResultSet" %>
 <%
+             Connection conn = (Connection)session.getAttribute("temp");  //For performance optimization: put conn=null in the end of code
              String userId = request.getParameter("profId");
-             ResultSet rs = db.Admin.GetDetails(userId);
+             ResultSet rs = db.Admin.GetDetails(conn, userId);
              String header = "Guard";
              if(userId.startsWith("S"))
                  header = "Supervisor";

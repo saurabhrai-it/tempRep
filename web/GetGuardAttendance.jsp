@@ -1,13 +1,9 @@
 <html>
 <%@ page import="java.text.*" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.LinkedHashMap" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.*" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.Connection" %>
 
         <%!
             public static String checkInTime(String tempTime){
@@ -30,6 +26,7 @@
         <%
             String userType=(String)session.getAttribute("userType");
             String userId=(String)session.getAttribute("uid"); 
+            Connection conn=(Connection)session.getAttribute("temp"); 
         %>
     
     <section class="content">
@@ -46,7 +43,7 @@
                   </thead>
                   <tbody>
          <%
-              ResultSet rs = db.Admin.GetSupGuardID(userId);
+              ResultSet rs = db.Admin.GetSupGuardID(conn, userId);
               LinkedHashMap<String, String> mapSG = new LinkedHashMap<>();
               while(rs.next())
               {
@@ -60,13 +57,13 @@
                     String value = entry.getValue();
                     String key1 = "";
                     String value1 = "";
-                    ResultSet rsGuard = db.Admin.GetUserFromUid(key);
+                    ResultSet rsGuard = db.Admin.GetUserFromUid(conn, key);
                     if(rsGuard.next())
                         key1=rsGuard.getString(1);
                     if(tempStr.equals(value))
                     {
                         if(oneTime.equals("true")){
-                            ResultSet rsSup = db.Admin.GetUserFromUid(value);
+                            ResultSet rsSup = db.Admin.GetUserFromUid(conn, value);
                             if(rsSup.next())
                                 value1=rsSup.getString(1);
          %>
@@ -128,7 +125,7 @@
                     }
                     else{
                     tempStr  = value;
-                    ResultSet rsSup = db.Admin.GetUserFromUid(value);
+                    ResultSet rsSup = db.Admin.GetUserFromUid(conn, value);
                     if(rsSup.next())
                        value1=rsSup.getString(1);
          %>

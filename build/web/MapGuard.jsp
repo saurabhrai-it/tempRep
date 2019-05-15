@@ -1,4 +1,4 @@
-<html>
+<!--<html>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.sql.Timestamp" %>
@@ -232,4 +232,4 @@ else if(userType.equals("client"))
         rs.close();
 }%>
     </body>
-</html>
+</html>-->

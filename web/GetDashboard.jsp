@@ -2,6 +2,7 @@
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.ResultSet" %>
 
         <%!
@@ -23,6 +24,7 @@
     </section>
 
         <%
+            Connection conn=(Connection)session.getAttribute("temp");
             String userType=(String)session.getAttribute("userType");
             String userId=(String)session.getAttribute("uid");
             if(userType.equals("admin")){
@@ -125,7 +127,7 @@ else if(userType.equals("client"))
 {
     String state = "InActive";
     String colorBox = "red";
-    ResultSet rs = db.Admin.getClientData(userId);
+    ResultSet rs = db.Admin.getClientData(conn, userId);
     if(rs.next())
     {
         String societyName=rs.getString(1);

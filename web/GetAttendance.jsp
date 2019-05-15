@@ -1,7 +1,8 @@
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.Timestamp" %>
 <%!
             public static String checkInTime(String tempTime){
                     Timestamp   ts = new Timestamp(Long.parseLong(tempTime));
@@ -86,8 +87,8 @@
                 </thead>
                 <tbody>
 
-<%
-                 ResultSet rs = db.Admin.GetAttendance(userId,inBound,outBound);
+<%               Connection conn=(Connection)session.getAttribute("temp");
+                 ResultSet rs = db.Admin.GetAttendance(conn, userId, inBound, outBound);
                  while(rs.next())
                  {
                      String inTime=checkInTime(rs.getString(1));
@@ -107,7 +108,6 @@
                 </tbody>
               </table>
             </div>
-
 <%
              }
 %>

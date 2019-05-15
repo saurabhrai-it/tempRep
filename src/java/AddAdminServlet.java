@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,11 @@ public class AddAdminServlet extends HttpServlet {
     String mailIdNewAdmin = req.getParameter("mailIdNewAdmin");
     String docNewAdmin = "No Doc for now";//**TODO**: req.getParameter("docNewAdmin");
     String uid=(String)session.getAttribute("uid");
-    String output = db.Admin.addAdmin(nameNew, sexNewAdmin, docNewAdmin, mobNewAdmin, mailIdNewAdmin, passNewAdmin, uid);
+    Connection conn=(Connection)session.getAttribute("temp");
+    String output = null;
+    try {
+        output = db.Admin.addAdmin(conn, nameNew, sexNewAdmin, docNewAdmin, mobNewAdmin, mailIdNewAdmin, passNewAdmin, uid);
+    }catch(Exception ex){ output = ex.getMessage(); }
     if(output.contains("Successfully"))
     {
          res.sendRedirect("homeadmin.jsp?success=true");

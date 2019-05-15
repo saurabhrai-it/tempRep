@@ -1,7 +1,9 @@
 <html>
+    <%--<%@ page import="java.sql.*" %>--%>
     <body>
         <%
             String userType=(String)session.getAttribute("userType");
+//            Connection conn=(Connection)session.getAttribute("temp");
         %>
     <section class="content-header">
       <h1>
@@ -52,6 +54,5 @@
               <!-- /.box-body -->
 
             </form>
-     
-    </body>
+     </body>
 </html>

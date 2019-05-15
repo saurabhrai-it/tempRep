@@ -2,11 +2,11 @@
     <body>
         <%@ page import="java.text.*" %>
         <%@ page import="java.util.Date" %>
-        <%@ page import="java.sql.Timestamp" %>
+        <%@ page import="java.sql.Connection" %>
         <%@ page import="java.sql.ResultSet" %>
         <%!
-            public static String checkInTime(String userId){
-                String tempTime = db.Admin.checkInTimePresent(userId);
+            public static String checkInTime(Connection conn, String userId){
+                String tempTime = db.Admin.checkInTimePresent(conn, userId);
                 if(!tempTime.equals("invalid"))
                 {
                     Timestamp   ts = new Timestamp(Long.parseLong(tempTime));
@@ -20,12 +20,13 @@
             }
         %>
         <%
+            Connection conn=(Connection)session.getAttribute("temp");
             String userName=(String)session.getAttribute("name");
             String userId=(String)session.getAttribute("uid");
             String disableInCheckbox="disabled";
             String disableOutCheckbox="";
             String superInTimeValue="";
-            String superInTime = checkInTime(userId);
+            String superInTime = checkInTime(conn, userId);
             if(superInTime.equals("0")){
                 superInTime = "00/00/0000 0:00:00 XX";
                 disableInCheckbox = "";
@@ -89,7 +90,7 @@
                 </thead>
                 <tbody>
                     <%
-                        ResultSet rs = db.Admin.getGuardData(userId);
+                        ResultSet rs = db.Admin.getGuardData(conn, userId);
                         while(rs.next())
                         {
                             String guardName=rs.getString(1);
@@ -97,7 +98,7 @@
                             
                             String disableInCheckboxGuard="disabled";
                             String disableOutCheckboxGuard="";
-                            String guardInTime = checkInTime(guardId);
+                            String guardInTime = checkInTime(conn, guardId);
                             if(guardInTime.equals("0")){
                                 guardInTime = "00/00/0000 0:00:00 XX";
                                 disableInCheckboxGuard = "";
